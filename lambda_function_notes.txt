@@ -1,0 +1,48 @@
+=> You can write/create lambda functions in 2 ways:
+    I) From inline code editor aws console provides
+    II) By uploading zip file either from local or s3 bucket
+
+
+=> Steps for creating a zip file lambda function
+    1. Create a directory in your local. ex: test1
+    2. Now create a virutalenvironment. ex: mytestenv1
+        => virtualenv mytestenv1
+    3. Activate virtualenv
+        => source mytestenv1/bin/activate
+    4. Install dependencies of python.
+        Ex: django, pillow
+        => pip install django pillow
+    5. Deactivate virtualenv
+        => deactivate
+    7. Create a file having name "lambda_function.py"
+        => touch lambda_function.py
+    8. Now, create a function with name lambda_handler in it accepting "event" and "context" as arguments.
+        =>  def lambda_handler(event, context):
+                # your logic
+                return {
+                    "status_code": 200,
+                    "message": "Success"
+                }
+    9. change directory to site-packages where all python dependencies are installed
+        and run command to create a deployment package with the installed libraries at the root.
+        => cd myvenv/lib/python3.8/site-packages
+        => zip -r ../../../../my-deployment-package_name.zip .
+
+    10. change directory back to root and add function code files to the root of your deployment package.
+        => cd ../../../../
+        => zip -g my-deployment-package_name.zip lambda_function.py
+
+    ::NOTE::
+    If you don't install and create zip from installed package and you get error can't import error while
+    executing lambda function then either add layer with that dependency or follow the same process i.e.
+    install package in activated virtual environment and then create zip again and you function code files in that zip.
+
+
+=> Steps to add layer for missing module/dependency:
+    1. Watch this video:
+        https://www.youtube.com/watch?v=Z1OlJzduGZ0
+    2. Copy/download code from here:
+        https://github.com/soumilshah1995/create-aws-layers-for-python-lambda
+    3. Execute this file and it will create the layer for missing package for specific python version
+    4. Now go to layers section and create a layer then upload this zip file.
+    5. After that go to your lambda function and add this layer(created recently).

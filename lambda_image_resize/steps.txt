@@ -1,0 +1,21 @@
+# Whenever new image is upload to src_bucket then it will trigger this
+# lambda function and will resize that image and upload that resized
+# image to target_bucket. It uses Key Management Service (KMS) to
+# encrypt the target bucket name given in environment variables of
+# configuration section.
+
+
+1. Create a lambda function
+
+2. Open KMS and create a key
+
+3. Upload zip file to aws lambda function
+
+4. Add trigger and in configure add s3 bucket and select bucket for which whenever new image is uploaded it will trigger this lambda function
+
+5. Go to IAM roles and attach the required policy.
+    select "AmazonS3FullAccess" for all permissions. else you will get "AccessDenied" error
+
+6. In configuration add environment variables:
+    S3_RESIZE_IMG_BUCKET: target_bucket_name
+    and encrypt it

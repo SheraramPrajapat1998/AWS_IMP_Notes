@@ -26,11 +26,13 @@
     9. change directory to site-packages where all python dependencies are installed
         and run command to create a deployment package with the installed libraries at the root.
         => cd myvenv/lib/python3.8/site-packages
-        => zip -r ../../../../my-deployment-package_name.zip .
+        => zip -r ../../../../my-deployment-package_name.zip .  # Linux/Ubuntu command
+        => Compress-Archive -Path * -DestinationPath my-deployment-package_name.zip  # Windows command
 
     10. change directory back to root and add function code files to the root of your deployment package.
         => cd ../../../../
-        => zip -g my-deployment-package_name.zip lambda_function.py
+        => zip -g my-deployment-package_name.zip lambda_function.py  # Linux/Ubuntu command
+        => Compress-Archive -Path .\lambda_function.py -DestinationPath .\my-deployment-package_name.zip  # Windows command
 
     ::NOTE::
     If you don't install and create zip from installed package and you get error can't import error while
